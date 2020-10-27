@@ -47,6 +47,7 @@ def add_new_ec2_instance_log(instance_id, public_ip, launch_time):
     f.close()
 
 
+#
 # dict = {}
 # instance_id = "i-0466c22ad696bcd0d"
 # instance_id2 = "i-0bd8a6f2a3762a500"
@@ -65,25 +66,16 @@ def add_new_ec2_instance_log(instance_id, public_ip, launch_time):
 # yaml.dump(dict, f)
 # f.close()
 # 修改yaml配置
-with open("ec2_creation_history.yaml", "r") as f:
-    # print(f.read())
-    result = f.read()
-    x = yaml.load(result)
-    print(type(x))
-    print(x)
-    x.pop("i-0466c22ad696bcd0d")
-    print(x)
-    with open("ec2_creation_history.yaml",'w') as w_f:
-        yaml.dump(x,w_f)
 
-    # new_date2 = {
-    #     "instance_id": "i-0466c22ad696bcd0d2",
-    #     "public_id": "35.72.32.1172",
-    #     "creation_time": "2020-10-20T03:22:53.000Z2"
-    # }
-    # x.p(new_date2)
-    # print("x2:" + x)
-    # with open("ec2_creation_history.yaml",'w') as w_f:
-    # 覆盖原先的配置文件
-    # yaml.dump(x,w_f)
-    # print(x)
+def delete_ec2_instance_log_by_id(instance_id):
+    with open("ec2_creation_history.yaml", "r") as f:
+        # print(f.read())
+        result = f.read()
+        x = yaml.load(result)
+        print(type(x))
+        print(x)
+        if not x:
+            x.pop(instance_id)
+        print(x)
+        with open("ec2_creation_history.yaml", 'w') as w_f:
+            yaml.dump(x, w_f)
