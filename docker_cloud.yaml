@@ -1,0 +1,29 @@
+- docker:
+      dockerApi:
+        connectTimeout: 60
+        dockerHost: {uri: 'tcp://18.181.109.165:4243'}
+        readTimeout: 60
+      exposeDockerHost: true
+      name: docker-efs-test
+      templates:
+      - connector:
+          ssh:
+            sshKeyStrategy:
+              manuallyConfiguredSSHKey: {credentialsId: 71cc0856-0bbb-4c2a-ab5d-2cdfa48f4c43,
+                sshHostKeyVerificationStrategy: nonVerifyingKeyVerificationStrategy}
+        dockerTemplateBase:
+          cpuPeriod: 0
+          cpuQuota: 0
+          image: shuangyu/jenkins-docker-env
+          volumes: ['/home/ubuntu/efs:/home/jenkins/.m2/repository', '/usr/bin/docker:/usr/bin/docker',
+            '/home/ubuntu/.aws:/home/jenkins/.aws']
+          volumesString: |-
+            /home/ubuntu/efs:/home/jenkins/.m2/repository
+            /usr/bin/docker:/usr/bin/docker
+            /home/ubuntu/.aws:/home/jenkins/.aws
+        instanceCapStr: '2'
+        labelString: docker-efs-test
+        name: docker-efs-test
+        pullStrategy: PULL_NEVER
+        pullTimeout: 300
+        remoteFs: /home/jenkins
