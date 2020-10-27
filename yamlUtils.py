@@ -17,23 +17,41 @@ def read_yaml(file):
 # def get_docker_clouds(docker_clouds):
 
 
-jenkinsconfiguration_path = os.path.join(os.getcwd(), 'jenkins.yaml')
-os.path.isfile(jenkinsconfiguration_path)
-yaml_infos = read_yaml(jenkinsconfiguration_path)
+# jenkinsconfiguration_path = os.path.join(os.getcwd(), 'jenkins.yaml')
+# os.path.isfile(jenkinsconfiguration_path)
+# yaml_infos = read_yaml(jenkinsconfiguration_path)
+
+
 # print(yaml_infos['jenkins']['clouds'])
 # print(type(yaml_infos['jenkins']['clouds']))
 # print(len(yaml_infos['jenkins']['clouds']))
 
-docker_cloud_ips = []
-for i in range(len(yaml_infos['jenkins']['clouds'])):
-    str = "tcp://54.199.31.91:4243"
-    print(re.findall(r"tcp://(.+?):4243", str))
-    print(yaml_infos['jenkins']['clouds'][i]['docker']['dockerApi']['dockerHost']['uri'])
-    docker_cloud_ips.append(re.findall(r"tcp://(.+?):4243",
-                                       yaml_infos['jenkins']['clouds'][i]['docker']['dockerApi']['dockerHost']['uri'])[
-                                0])
+# docker_cloud_ips = []
+# for i in range(len(yaml_infos['jenkins']['clouds'])):
+#     str = "tcp://54.199.31.91:4243"
+#     print(re.findall(r"tcp://(.+?):4243", str))
+#     print(yaml_infos['jenkins']['clouds'][i]['docker']['dockerApi']['dockerHost']['uri'])
+#     docker_cloud_ips.append(re.findall(r"tcp://(.+?):4243",
+#                                        yaml_infos['jenkins']['clouds'][i]['docker']['dockerApi']['dockerHost']['uri'])[
+#                                 0])
+#
+# print(docker_cloud_ips)
 
-print(docker_cloud_ips)
+# get all the docker cloud ips form file f
+def collect_docker_cloud_ips(file_name):
+    jenkins_configuration_path = os.path.join(os.getcwd(), file_name)
+    os.path.isfile(jenkins_configuration_path)
+    yaml_infos = read_yaml(jenkins_configuration_path)
+    docker_cloud_ips = []
+    for i in range(len(yaml_infos['jenkins']['clouds'])):
+        str = "tcp://54.199.31.91:4243"
+        print(re.findall(r"tcp://(.+?):4243", str))
+        print(yaml_infos['jenkins']['clouds'][i]['docker']['dockerApi']['dockerHost']['uri'])
+        docker_cloud_ips.append(re.findall(r"tcp://(.+?):4243",
+                                           yaml_infos['jenkins']['clouds'][i]['docker']['dockerApi']['dockerHost'][
+                                               'uri'])[
+                                    0])
+    return docker_cloud_ips
 
 
 # add instance log in ec2_creation_history.yaml
