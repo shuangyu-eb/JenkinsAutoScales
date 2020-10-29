@@ -47,3 +47,13 @@ def get_jenkins_configuration_yaml(host_ip):
     return commandExcuteUtils.runcmd(
         ["curl -X POST http://admin:" + api_token + "@" +
          host_ip + ":8080/configuration-as-code/export -H " + crumb + "> jenkins.yaml"])
+
+
+def upload_jenkins_yaml():
+    commandExcuteUtils.runcmd(
+        ["scp -i ~/.ssh/jenkins-auto-scale jenkins.yaml ubuntu@54.154.89.252:/home/ubuntu/jenkins_home/jenkins.yaml"])
+
+
+def get_current_busy_computer_xml():
+    commandExcuteUtils.runcmd(
+        ["curl http://54.154.89.252:8080/computer/api/xml?depth=1 --user 'admin:Zsy950108' > computer.xml"])

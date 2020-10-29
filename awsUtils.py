@@ -19,3 +19,7 @@ def get_public_ip_by_instance_id(instance_id):
 def get_launch_time_by_instance_id(instance_id):
     return commandExcuteUtils.runcmd("aws ec2 describe-instances --instance-ids" + " " + instance_id +
                                      " --query 'Reservations[*].Instances[*].LaunchTime' --output text")
+
+
+def terminate_ec2(instance_id):
+    return commandExcuteUtils.runcmd(["aws ec2 terminate-instances --instance-ids " + instance_id])

@@ -2,104 +2,138 @@ credentials:
   system:
     domainCredentials:
     - credentials:
-      - usernamePassword:
-          description: "used for jenkins slave"
-          id: "5679c7fb-87b3-4d22-a192-7b641355c043"
-          password: "{AQAAABAAAAAQYf6p0HZJN7frfD5gWhfxXMkzRhesAElh0lmysPHgZto=}"
-          scope: GLOBAL
-          username: "jenkins"
+      - usernamePassword: {description: used for jenkins slave, id: 5679c7fb-87b3-4d22-a192-7b641355c043,
+          password: '{AQAAABAAAAAQYf6p0HZJN7frfD5gWhfxXMkzRhesAElh0lmysPHgZto=}',
+          scope: GLOBAL, username: jenkins}
 jenkins:
-  agentProtocols:
-  - "JNLP4-connect"
-  - "Ping"
+  agentProtocols: [JNLP4-connect, Ping]
   authorizationStrategy:
-    loggedInUsersCanDoAnything:
-      allowAnonymousRead: false
+    loggedInUsersCanDoAnything: {allowAnonymousRead: false}
   clouds:
   - docker:
       dockerApi:
         connectTimeout: 60
-        dockerHost:
-          uri: "tcp://34.245.134.204:4243"
+        dockerHost: {uri: 'tcp://34.245.134.204:4243'}
         readTimeout: 60
       exposeDockerHost: true
-      name: "dockerssszsytestsuccess"
+      name: dockerssszsytestsuccessupload test
       templates:
       - connector:
           ssh:
             sshKeyStrategy:
-              manuallyConfiguredSSHKey:
-                sshHostKeyVerificationStrategy: "knownHostsFileKeyVerificationStrategy"
+              manuallyConfiguredSSHKey: {sshHostKeyVerificationStrategy: knownHostsFileKeyVerificationStrategy}
         dockerTemplateBase:
           cpuPeriod: 0
           cpuQuota: 0
-          image: "shuangyu"
-          volumes:
-          - "/home/ubuntu/efs:/home/jenkins/.m2/repository'"
-          - "'/usr/bin/docker:/usr/bin/docker'"
-          - "'/home/ubuntu/.aws:/home/jenkins/.aws"
+          image: shuangyu
+          volumes: ['/home/ubuntu/efs:/home/jenkins/.m2/repository''', '''/usr/bin/docker:/usr/bin/docker''',
+            '''/home/ubuntu/.aws:/home/jenkins/.aws']
           volumesString: "/home/ubuntu/efs:/home/jenkins/.m2/repository' \n'/usr/bin/docker:/usr/bin/docker'\n\
             '/home/ubuntu/.aws:/home/jenkins/.aws"
-        instanceCapStr: "2"
-        labelString: "docker"
+        instanceCapStr: '2'
+        labelString: docker
         mode: EXCLUSIVE
         pullStrategy: PULL_NEVER
         pullTimeout: 300
-        remoteFs: "/home/jenkins"
+        remoteFs: /home/jenkins
+  - docker:
+      dockerApi:
+        connectTimeout: 60
+        dockerHost: {uri: 'tcp://18.202.245.81:4243'}
+        readTimeout: 60
+      exposeDockerHost: true
+      name: docker-efs-test
+      templates:
+      - connector:
+          ssh:
+            sshKeyStrategy:
+              manuallyConfiguredSSHKey: {credentialsId: 71cc0856-0bbb-4c2a-ab5d-2cdfa48f4c43,
+                sshHostKeyVerificationStrategy: nonVerifyingKeyVerificationStrategy}
+        dockerTemplateBase:
+          cpuPeriod: 0
+          cpuQuota: 0
+          image: shuangyu/jenkins-docker-env
+          volumes: ['/home/ubuntu/efs:/home/jenkins/.m2/repository', '/usr/bin/docker:/usr/bin/docker',
+            '/home/ubuntu/.aws:/home/jenkins/.aws']
+          volumesString: '/home/ubuntu/efs:/home/jenkins/.m2/repository
+
+            /usr/bin/docker:/usr/bin/docker
+
+            /home/ubuntu/.aws:/home/jenkins/.aws'
+        instanceCapStr: '2'
+        labelString: docker-efs-test
+        name: docker-efs-test
+        pullStrategy: PULL_NEVER
+        pullTimeout: 300
+        remoteFs: /home/jenkins
+  - docker:
+      dockerApi:
+        connectTimeout: 60
+        dockerHost: {uri: 'tcp://52.215.236.212:4243'}
+        readTimeout: 60
+      exposeDockerHost: true
+      name: docker-efs-test
+      templates:
+      - connector:
+          ssh:
+            sshKeyStrategy:
+              manuallyConfiguredSSHKey: {credentialsId: 71cc0856-0bbb-4c2a-ab5d-2cdfa48f4c43,
+                sshHostKeyVerificationStrategy: nonVerifyingKeyVerificationStrategy}
+        dockerTemplateBase:
+          cpuPeriod: 0
+          cpuQuota: 0
+          image: shuangyu/jenkins-docker-env
+          volumes: ['/home/ubuntu/efs:/home/jenkins/.m2/repository', '/usr/bin/docker:/usr/bin/docker',
+            '/home/ubuntu/.aws:/home/jenkins/.aws']
+          volumesString: '/home/ubuntu/efs:/home/jenkins/.m2/repository
+
+            /usr/bin/docker:/usr/bin/docker
+
+            /home/ubuntu/.aws:/home/jenkins/.aws'
+        instanceCapStr: '2'
+        labelString: docker-efs-test
+        name: docker-efs-test
+        pullStrategy: PULL_NEVER
+        pullTimeout: 300
+        remoteFs: /home/jenkins
   crumbIssuer:
-    standard:
-      excludeClientIPFromCrumb: false
+    standard: {excludeClientIPFromCrumb: false}
   disableRememberMe: false
   labelAtoms:
-  - name: "docker"
-  - name: "master"
-  markupFormatter: "plainText"
+  - {name: docker}
+  - {name: master}
+  markupFormatter: plainText
   mode: NORMAL
-  myViewsTabBar: "standard"
+  myViewsTabBar: standard
   numExecutors: 2
   primaryView:
-    all:
-      name: "all"
-  projectNamingStrategy: "standard"
+    all: {name: all}
+  projectNamingStrategy: standard
   quietPeriod: 5
-  remotingSecurity:
-    enabled: true
+  remotingSecurity: {enabled: true}
   scmCheckoutRetryCount: 0
   securityRealm:
     local:
       allowsSignup: false
       enableCaptcha: false
       users:
-      - id: "admin"
-        name: "admin"
-        properties:
-        - "apiToken"
-        - "timezone"
+      - id: admin
+        name: admin
+        properties: [apiToken, timezone]
   slaveAgentPort: 50000
   updateCenter:
     sites:
-    - id: "default"
-      url: "https://updates.jenkins.io/update-center.json"
+    - {id: default, url: 'https://updates.jenkins.io/update-center.json'}
   views:
-  - all:
-      name: "all"
-  viewsTabBar: "standard"
+  - all: {name: all}
+  viewsTabBar: standard
 security:
-  apiToken:
-    creationOfLegacyTokenEnabled: false
-    tokenGenerationOnCreationEnabled: false
-    usageStatisticsEnabled: true
-  sSHD:
-    port: -1
+  apiToken: {creationOfLegacyTokenEnabled: false, tokenGenerationOnCreationEnabled: false,
+    usageStatisticsEnabled: true}
+  sSHD: {port: -1}
 unclassified:
   buildDiscarders:
-    configuredBuildDiscarders:
-    - "jobBuildDiscarder"
-  fingerprints:
-    fingerprintCleanupDisabled: false
-    storage: "file"
-  location:
-    adminAddress: "address not configured yet <nobody@nowhere>"
-    url: "http://54.154.89.252:8080/"
-  pollSCM:
-    pollingThreadCount: 10
+    configuredBuildDiscarders: [jobBuildDiscarder]
+  fingerprints: {fingerprintCleanupDisabled: false, storage: file}
+  location: {adminAddress: address not configured yet <nobody@nowhere>, url: 'http://54.154.89.252:8080/'}
+  pollSCM: {pollingThreadCount: 10}

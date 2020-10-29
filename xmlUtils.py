@@ -17,3 +17,6 @@ def get_busy_docker_cloud_ips():
         if format_des:
             res.append(format_des[0])
     return res
+
+
+print(get_busy_docker_cloud_ips())

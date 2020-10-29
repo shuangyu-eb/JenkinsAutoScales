@@ -46,7 +46,9 @@ def collect_docker_cloud_ips(file_name):
     for i in range(len(yaml_infos['jenkins']['clouds'])):
         # str = "tcp://54.199.31.91:4243"
         # print(re.findall(r"tcp://(.+?):4243", str))
-        # print(yaml_infos['jenkins']['clouds'][i]['docker']['dockerApi']['dockerHost']['uri'])
+        print(re.findall(r"tcp://(.+?):4243",
+                                           yaml_infos['jenkins']['clouds'][i]['docker']['dockerApi']['dockerHost'][
+                                               'uri']))
         docker_cloud_ips.append(re.findall(r"tcp://(.+?):4243",
                                            yaml_infos['jenkins']['clouds'][i]['docker']['dockerApi']['dockerHost'][
                                                'uri'])[
