@@ -1,9 +1,9 @@
 import JenkinsUtils
 import yamlUtils
 
-
-print(len(yamlUtils.collect_docker_cloud_ips("jenkins.yaml")))
-print(JenkinsUtils.get_job_count_in_build_queue())
+JenkinsUtils.get_jenkins_configuration_yaml("54.154.89.252")
+# print(len(yamlUtils.collect_docker_cloud_ips("jenkins.yaml")))
+# print(JenkinsUtils.get_job_count_in_build_queue())
 # docker cloud number below Max 4 and the build job count > 1 means we need to scale on our docker clouds cluster
 if JenkinsUtils.get_job_count_in_build_queue() > 1 and len(yamlUtils.collect_docker_cloud_ips("jenkins.yaml")) < 9:
     print("scale on")

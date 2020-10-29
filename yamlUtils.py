@@ -1,7 +1,6 @@
 import yaml
 import os
 import re
-import bios
 
 
 ## 读取yaml文件
