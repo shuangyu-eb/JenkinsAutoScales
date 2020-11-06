@@ -66,27 +66,6 @@ def add_new_ec2_instance_log(instance_id, public_ip, launch_time):
     yaml.dump(temp_dict, f)
     f.close()
 
-
-#
-# dict = {}
-# instance_id = "i-0466c22ad696bcd0d"
-# instance_id2 = "i-0bd8a6f2a3762a500"
-# public_ip = "35.72.32.117"
-# public_ip2 = "18.180.156.169"
-# dict[instance_id] = {
-#     "public_ip": public_ip,
-#     "creation_time": "2020-10-20T03:22:53.000Z"
-# }
-# dict[instance_id2] = {
-#     "public_ip": public_ip2,
-#     "creation_time": "2020-10-20T03:22:53.000Z"
-# }
-# #
-# f = open("ec2_creation_history.yaml", "w")
-# yaml.dump(dict, f)
-# f.close()
-# 修改yaml配置
-
 # delete ec2 instance history in ec2_creation_history.yaml by instance id
 def delete_ec2_instance_log_by_id(instance_id):
     with open("ec2_creation_history.yaml", "r") as f:

@@ -1,6 +1,7 @@
 import os
 import xmlUtils
 import yamlUtils
+import awsUtils
 
 f = os.popen('date')
 now = f.read()
@@ -12,3 +13,6 @@ print("busy", busy_ips)
 print("all ips", docker_cloud_ips)
 deletable_ips = [x for x in docker_cloud_ips if x not in busy_ips]
 print("deletable ips", deletable_ips)
+
+
+yamlUtils.delete_docker_cloud_in_jenkins(deletable_ips[0])
