@@ -39,39 +39,6 @@ jenkins:
       - "View/Create:authenticated"
       - "View/Delete:authenticated"
       - "View/Read:authenticated"
-  clouds:
-  - docker:
-      dockerApi:
-        connectTimeout: 60
-        dockerHost:
-          uri: "tcp://34.245.134.204:4243"
-        readTimeout: 60
-      exposeDockerHost: true
-      name: "dockerssszsytestsuccessupload test"
-      templates:
-      - connector:
-          ssh:
-            sshKeyStrategy:
-              manuallyConfiguredSSHKey:
-                sshHostKeyVerificationStrategy: "knownHostsFileKeyVerificationStrategy"
-        dockerTemplateBase:
-          cpuPeriod: 0
-          cpuQuota: 0
-          image: "shuangyu"
-          volumes:
-          - "/home/ubuntu/efs:/home/jenkins/.m2/repository'"
-          - "'/usr/bin/docker:/usr/bin/docker'"
-          - "'/home/ubuntu/.aws:/home/jenkins/.aws"
-          volumesString: |-
-            /home/ubuntu/efs:/home/jenkins/.m2/repository'
-            '/usr/bin/docker:/usr/bin/docker'
-            '/home/ubuntu/.aws:/home/jenkins/.aws
-        instanceCapStr: "2"
-        labelString: "docker"
-        mode: EXCLUSIVE
-        pullStrategy: PULL_NEVER
-        pullTimeout: 300
-        remoteFs: "/home/jenkins"
   crumbIssuer:
     standard:
       excludeClientIPFromCrumb: false
