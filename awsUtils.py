@@ -5,7 +5,7 @@ import json
 # Create aws ec2 and return instance id
 def create_ec2():
     re_info = commandExcuteUtils.runcmd("aws ec2 run-instances \\\n"
-                                        + "    --launch-template LaunchTemplateId=lt-0accb4704d9944fba,Version=2")
+                                        + "    --launch-template LaunchTemplateId=lt-0accb4704d9944fba,Version=3")
     return json.loads(re_info)["Instances"][0]["InstanceId"]
 
 
