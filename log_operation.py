@@ -12,4 +12,4 @@ def operation_history(operation):
     file_handle.write('Execute python script to ' + operation + " at time:" + str(datetime.now()) + '\n')
 
 
-operation_history("scale_on")
+operation_history("log:" + str(datetime.now()))

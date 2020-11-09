@@ -1,102 +1,126 @@
 jenkins:
-  agentProtocols:
-  - "JNLP4-connect"
-  - "Ping"
+  agentProtocols: [JNLP4-connect, Ping]
   authorizationStrategy:
     projectMatrix:
-      permissions:
-      - "Agent/Build:authenticated"
-      - "Agent/Configure:authenticated"
-      - "Agent/Connect:authenticated"
-      - "Agent/Create:authenticated"
-      - "Agent/Delete:authenticated"
-      - "Agent/Disconnect:authenticated"
-      - "Credentials/Create:authenticated"
-      - "Credentials/Delete:authenticated"
-      - "Credentials/ManageDomains:authenticated"
-      - "Credentials/Update:authenticated"
-      - "Credentials/View:authenticated"
-      - "Job/Build:authenticated"
-      - "Job/Cancel:authenticated"
-      - "Job/Configure:authenticated"
-      - "Job/Create:authenticated"
-      - "Job/Delete:authenticated"
-      - "Job/Discover:authenticated"
-      - "Job/Move:authenticated"
-      - "Job/Read:authenticated"
-      - "Job/Workspace:authenticated"
-      - "Lockable Resources/Reserve:authenticated"
-      - "Lockable Resources/Unlock:authenticated"
-      - "Lockable Resources/View:authenticated"
-      - "Overall/Administer:authenticated"
-      - "Overall/Administer:easternbay"
-      - "Overall/Read:authenticated"
-      - "Run/Delete:authenticated"
-      - "Run/Replay:authenticated"
-      - "Run/Update:authenticated"
-      - "SCM/Tag:authenticated"
-      - "View/Configure:authenticated"
-      - "View/Create:authenticated"
-      - "View/Delete:authenticated"
-      - "View/Read:authenticated"
+      permissions: ['Agent/Build:authenticated', 'Agent/Configure:authenticated',
+        'Agent/Connect:authenticated', 'Agent/Create:authenticated', 'Agent/Delete:authenticated',
+        'Agent/Disconnect:authenticated', 'Credentials/Create:authenticated', 'Credentials/Delete:authenticated',
+        'Credentials/ManageDomains:authenticated', 'Credentials/Update:authenticated',
+        'Credentials/View:authenticated', 'Job/Build:authenticated', 'Job/Cancel:authenticated',
+        'Job/Configure:authenticated', 'Job/Create:authenticated', 'Job/Delete:authenticated',
+        'Job/Discover:authenticated', 'Job/Move:authenticated', 'Job/Read:authenticated',
+        'Job/Workspace:authenticated', 'Lockable Resources/Reserve:authenticated',
+        'Lockable Resources/Unlock:authenticated', 'Lockable Resources/View:authenticated',
+        'Overall/Administer:authenticated', 'Overall/Administer:easternbay', 'Overall/Read:authenticated',
+        'Run/Delete:authenticated', 'Run/Replay:authenticated', 'Run/Update:authenticated',
+        'SCM/Tag:authenticated', 'View/Configure:authenticated', 'View/Create:authenticated',
+        'View/Delete:authenticated', 'View/Read:authenticated']
+  clouds: []
   crumbIssuer:
-    standard:
-      excludeClientIPFromCrumb: false
+    standard: {excludeClientIPFromCrumb: false}
   disableRememberMe: false
-  markupFormatter: "plainText"
+  labelAtoms:
+  - {name: master}
+  markupFormatter: plainText
   mode: NORMAL
-  myViewsTabBar: "standard"
+  myViewsTabBar: standard
   numExecutors: 0
   primaryView:
-    all:
-      name: "all"
-  projectNamingStrategy: "standard"
+    all: {name: all}
+  projectNamingStrategy: standard
   quietPeriod: 5
-  remotingSecurity:
-    enabled: true
+  remotingSecurity: {enabled: true}
   scmCheckoutRetryCount: 0
+  securityRealm:
+    local:
+      allowsSignup: false
+      enableCaptcha: false
+      users:
+      - id: tardisone
+        name: tardisone
+        properties:
+        - apiToken
+        - mailer
+        - myView
+        - preferredProvider: {providerId: default}
+        - timezone
   slaveAgentPort: 50000
   updateCenter:
     sites:
-    - id: "default"
-      url: "https://updates.jenkins.io/update-center.json"
+    - {id: default, url: 'https://updates.jenkins.io/update-center.json'}
   views:
-  - all:
-      name: "all"
+  - all: {name: all}
+  viewsTabBar: standard
 security:
-  apiToken:
-    creationOfLegacyTokenEnabled: true
-    tokenGenerationOnCreationEnabled: false
-    usageStatisticsEnabled: true
-unclassified:
-  gitHubPluginConfig:
-    configs:
-    - name: "EasternbayGithubServer"
-    hookUrl: "https://jenkins.tardisoneci.com/github-webhook/"
-  sonarGlobalConfiguration:
-    buildWrapperEnabled: true
-    installations:
-    - name: "EasternbaySonarQube"
-      serverUrl: "http://3.115.71.39:9000"
-      triggers:
-        envVar:
-        skipScmCause: false
-        skipUpstreamCause: false
+  apiToken: {creationOfLegacyTokenEnabled: true, tokenGenerationOnCreationEnabled: false,
+    usageStatisticsEnabled: true}
+  sSHD: {port: -1}
 tool:
   git:
     installations:
-    - home: "/usr/bin/git"
-      name: "Default"
+    - {home: /usr/bin/git, name: Default}
   maven:
     installations:
-    - home: "/usr/share/maven"
-      name: "Maven 3.6.0"
+    - {home: /usr/share/maven, name: Maven 3.6.0}
   sonarRunnerInstallation:
     installations:
-    - name: "Easternbay Sonarqube Scanner"
+    - name: Easternbay Sonarqube Scanner
       properties:
       - installSource:
           installers:
-          - sonarRunnerInstaller:
-              id: "4.2.0.1873"
+          - sonarRunnerInstaller: {id: 4.2.0.1873}
+unclassified:
+  ansiColorBuildWrapper:
+    colorMaps:
+    - {black: '#000000', blackB: '#4C4C4C', blue: '#1E90FF', blueB: '#4682B4', cyan: '#00CDCD',
+      cyanB: '#00FFFF', green: '#00CD00', greenB: '#00FF00', magenta: '#CD00CD', magentaB: '#FF00FF',
+      name: xterm, red: '#CD0000', redB: '#FF0000', white: '#E5E5E5', whiteB: '#FFFFFF',
+      yellow: '#CDCD00', yellowB: '#FFFF00'}
+    - {black: '#000000', blackB: '#555555', blue: '#0000AA', blueB: '#5555FF', cyan: '#00AAAA',
+      cyanB: '#55FFFF', defaultBackground: 0, defaultForeground: 7, green: '#00AA00',
+      greenB: '#55FF55', magenta: '#AA00AA', magentaB: '#FF55FF', name: vga, red: '#AA0000',
+      redB: '#FF5555', white: '#AAAAAA', whiteB: '#FFFFFF', yellow: '#AA5500', yellowB: '#FFFF55'}
+    - {black: black, blackB: black, blue: blue, blueB: blue, cyan: cyan, cyanB: cyan,
+      green: green, greenB: green, magenta: magenta, magentaB: magenta, name: css,
+      red: red, redB: red, white: white, whiteB: white, yellow: yellow, yellowB: yellow}
+    - {black: '#2E3436', blackB: '#2E3436', blue: '#3465A4', blueB: '#3465A4', cyan: '#06989A',
+      cyanB: '#06989A', defaultBackground: 0, defaultForeground: 7, green: '#4E9A06',
+      greenB: '#4E9A06', magenta: '#75507B', magentaB: '#75507B', name: gnome-terminal,
+      red: '#CC0000', redB: '#CC0000', white: '#D3D7CF', whiteB: '#D3D7CF', yellow: '#C4A000',
+      yellowB: '#C4A000'}
+  buildDiscarders:
+    configuredBuildDiscarders: [jobBuildDiscarder]
+  buildStepOperation: {enabled: false}
+  defaultFolderConfiguration:
+    healthMetrics:
+    - worstChildHealthMetric: {recursive: true}
+  extendedEmailPublisher: {adminRequiredForTemplateTesting: false, allowUnregisteredEnabled: false,
+    charset: UTF-8, debugMode: false, defaultBody: '$PROJECT_NAME - Build # $BUILD_NUMBER
+      - $BUILD_STATUS:
 
+
+      Check console output at $BUILD_URL to view the results.', defaultSubject: '$PROJECT_NAME
+      - Build # $BUILD_NUMBER - $BUILD_STATUS!', maxAttachmentSize: -1, maxAttachmentSizeMb: 0,
+    precedenceBulk: false, useSsl: false, watchingEnabled: false}
+  fingerprints: {fingerprintCleanupDisabled: false, storage: file}
+  gitHubConfiguration: {apiRateLimitChecker: ThrottleForNormalize}
+  gitHubPluginConfig:
+    configs:
+    - {name: EasternbayGithubServer}
+    hookUrl: https://jenkins.tardisoneci.com/github-webhook/
+  gitSCM: {allowSecondFetch: false, createAccountBasedOnEmail: false, disableGitToolChooser: false,
+    hideCredentials: false, showEntireCommitSummaryInChanges: false, useExistingAccountWithSameEmail: false}
+  junitTestResultStorage: {storage: file}
+  location: {adminAddress: address not configured yet <nobody@nowhere>, url: 'https://jenkinstests.tardisoneci.com/'}
+  mailer: {charset: UTF-8, useSsl: false, useTls: false}
+  mavenModuleSet: {localRepository: default}
+  pollSCM: {pollingThreadCount: 10}
+  sonarGlobalConfiguration:
+    buildWrapperEnabled: true
+    installations:
+    - name: EasternbaySonarQube
+      serverUrl: http://3.115.71.39:9000
+      triggers: {skipScmCause: false, skipUpstreamCause: false}
+  timestamperConfig: {allPipelines: false, elapsedTimeFormat: '''<b>''HH:mm:ss.S''</b>
+      ''', systemTimeFormat: '''<b>''HH:mm:ss''</b> '''}
+  whitelist: {enabled: false}
