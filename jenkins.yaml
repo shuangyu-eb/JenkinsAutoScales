@@ -148,6 +148,7 @@ jenkins:
             /usr/bin/docker:/usr/bin/docker
             /home/ubuntu/.aws:/home/jenkins/.aws
         instanceCapStr: "2"
+        labelString: "docker cloud shamu-hrs"
         mode: EXCLUSIVE
         name: "docker-cloud"
         pullStrategy: PULL_NEVER
@@ -160,8 +161,8 @@ jenkins:
   labelAtoms:
   - name: "cloud"
   - name: "docker"
-  - name: "docker-cloud-0001r4l4hft8c"
-  - name: "docker-cloud-0001r4lkummfh"
+  - name: "docker-cloud-0001q9xaoscgl"
+  - name: "docker-cloud-0001q9xr77bbj"
   - name: "master"
   - name: "shamu-hrs"
   markupFormatter: "plainText"
@@ -380,3 +381,4 @@ tool:
           installers:
           - sonarRunnerInstaller:
               id: "4.2.0.1873"
+

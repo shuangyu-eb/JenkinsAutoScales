@@ -1,6 +1,10 @@
 import yaml
 import os
 import re
+from datetime import date, datetime, time
+from backports.datetime_fromisoformat import MonkeyPatch
+
+MonkeyPatch.patch_fromisoformat()
 
 
 ## 读取yaml文件
@@ -13,6 +17,7 @@ def read_yaml(file):
         return yaml_info
     return None
 
+
 # get all the docker cloud ips form file f
 def collect_docker_cloud_ips(file_name):
     jenkins_configuration_path = os.path.join(os.getcwd(), file_name)
@@ -23,8 +28,8 @@ def collect_docker_cloud_ips(file_name):
         # str = "tcp://54.199.31.91:4243"
         # print(re.findall(r"tcp://(.+?):4243", str))
         print(re.findall(r"tcp://(.+?):4243",
-                                           yaml_infos['jenkins']['clouds'][i]['docker']['dockerApi']['dockerHost'][
-                                               'uri']))
+                         yaml_infos['jenkins']['clouds'][i]['docker']['dockerApi']['dockerHost'][
+                             'uri']))
         docker_cloud_ips.append(re.findall(r"tcp://(.+?):4243",
                                            yaml_infos['jenkins']['clouds'][i]['docker']['dockerApi']['dockerHost'][
                                                'uri'])[
@@ -42,19 +47,40 @@ def add_new_ec2_instance_log(instance_id, public_ip, launch_time):
     yaml.dump(temp_dict, f)
     f.close()
 
+
 # delete ec2 instance history in ec2_creation_history.yaml by instance id
 def delete_ec2_instance_log_by_id(instance_id):
     with open("ec2_creation_history.yaml", "r") as f:
-        # print(f.read())
         result = f.read()
         x = yaml.load(result)
-        print(type(x))
-        print(x)
-        if not x:
-            x.pop(instance_id)
-        print(x)
+        x.pop(instance_id)
         with open("ec2_creation_history.yaml", 'w') as w_f:
             yaml.dump(x, w_f)
+
+
+def check_ec2_launch_time_over_2_hours(instance_ip):
+    # print(f.read())
+    jenkins_ec2_creation_history_file_path = os.path.join(os.getcwd(), "ec2_creation_history.yaml")
+    yaml_info = read_yaml(jenkins_ec2_creation_history_file_path)
+    print("ip in check", instance_ip)
+    for k in yaml_info:
+        print("k", k)
+        if yaml_info[k]['public_ip'] == instance_ip:
+            print("time exists",
+                  (datetime.fromisoformat(yaml_info[k]['launch_time'][:-1]) - datetime.now()).total_seconds())
+            if (datetime.fromisoformat(yaml_info[k]['launch_time'][:-1]) - datetime.now()).total_seconds() < -7200:
+                print("return true")
+                return True
+    print("return false")
+    return False
+
+
+def get_instance_id_by_public_ip_from_ec2_creation_yaml(instance_ip):
+    jenkins_ec2_creation_history_file_path = os.path.join(os.getcwd(), "ec2_creation_history.yaml")
+    yaml_info = read_yaml(jenkins_ec2_creation_history_file_path)
+    for instance_id in yaml_info:
+        if yaml_info[instance_id]['public_ip'] == instance_ip:
+            return instance_id
 
 
 # add new docker cloud info in jenkins.yaml in jenkins master
@@ -85,3 +111,6 @@ def delete_docker_cloud_in_jenkins(deleted_public_ip):
         print(yaml_infos)
         print(yaml_infos['jenkins']['clouds'])
         yaml.dump(yaml_infos, f)
+
+
+add_docker_cloud_in_jenkins("12.13.123.123")
