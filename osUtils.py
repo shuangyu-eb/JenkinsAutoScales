@@ -1,9 +1,5 @@
 import os
 
-# import sys
-# print(os.path.abspath('main.py'))
-# print(os.getcwd())
-
 ec2_create_history_path = os.path.join(os.getcwd(), 'ec2_creation_history.yaml')
 
 ec2_operation_history = os.path.join(os.getcwd(), 'operation_history.txt')

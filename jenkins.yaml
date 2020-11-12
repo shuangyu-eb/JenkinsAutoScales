@@ -1,126 +1,382 @@
+credentials:
+  system:
+    domainCredentials:
+    - credentials:
+      - usernamePassword:
+          description: "used for attach docker cloud container"
+          id: "298286ab-6c07-43b7-a339-b731da173821"
+          password: "{AQAAABAAAAAQZ/EUR3MNO+bhN7vfTQi7nDhHSLlze7V+1PWnlLaV9KY=}"
+          scope: GLOBAL
+          username: "jenkins"
+      - string:
+          description: "git access token[shuangyu]"
+          id: "5fed7e7a-fb86-41a8-b522-d1da25b97782"
+          scope: GLOBAL
+          secret: "{AQAAABAAAAAwSXgR0MEABA+OZI1VgK7gQu1dVuwFa8txfSYRohv2qhBKNn3xG5gML8wAXWy3FbzIpLT/p94VJc6TDPHtN3Qa0Q==}"
+      - usernamePassword:
+          description: "github account [shuangyu]"
+          id: "40a59b89-4351-4854-9f3d-609fd7d3c356"
+          password: "{AQAAABAAAAAQIdsE6h1hMrNpppXUjP2t84sUdYcxi5UQp/rp/1UOcOY=}"
+          scope: GLOBAL
+          username: "shuangyuzhu0069@gmail.com"
+      - string:
+          description: "git access token[shuangyu]"
+          id: "842e4b30-73d6-4eff-bd64-0045bef4e238"
+          scope: GLOBAL
+          secret: "{AQAAABAAAAAwEMaqdiTT+SacZU76HF/7Ga+6r5fTT+6TKiHIcBPQvMfLNJAFkas3UL8SpxEOzxvpn0cRynrK0/cfsvP2fRuOyQ==}"
+      - usernamePassword:
+          id: "6e5dd772-59f3-4102-afae-888a801cd356"
+          password: "{AQAAABAAAAAwDszogo0bdezCDN/Px60ZwVnpQZ7Yd+udUXdPHa/tc5FGu90KffobcjClaFJ4mazUX6XH3Tdtx10y7o+eEQjFaw==}"
+          scope: GLOBAL
+          username: "hrs-github-access-token-shuangyu"
+      - string:
+          description: "sonarqube-token"
+          id: "sonarqube-token"
+          scope: GLOBAL
+          secret: "{AQAAABAAAAAw9yQNlC/J/6R58zxWRcx4OAUf/HBYdUfeQXKn20YAvqFISU9vqYT4d94Ut/Lc0OGfdSPvlm8n+AX+L2zGH2tXnQ==}"
+      - string:
+          description: "simplyhired-hrs-eastbay-dev-ansible-vault"
+          id: "simplyhired-hrs-eastbay-dev-ansible-vault"
+          scope: GLOBAL
+          secret: "{AQAAABAAAAAgm8GFigujin6yd8MA36JQFuGqVziGBfqjxEZzW6yvU+opJiTVljLMlDJtrNCKH15Q}"
+      - string:
+          description: "simplyhired-hrs-eastbay-qa-ansible-vault"
+          id: "simplyhired-hrs-eastbay-qa-ansible-vault"
+          scope: GLOBAL
+          secret: "{AQAAABAAAAAgCsN1Dj9/UIXnFzKVSvOMb1QiXMuU5cE2xLp6IIkOfzfgkRrAMPOZ/FECh6P4+6Bx}"
 jenkins:
-  agentProtocols: [JNLP4-connect, Ping]
+  agentProtocols:
+  - "JNLP4-connect"
+  - "Ping"
   authorizationStrategy:
     projectMatrix:
-      permissions: ['Agent/Build:authenticated', 'Agent/Configure:authenticated',
-        'Agent/Connect:authenticated', 'Agent/Create:authenticated', 'Agent/Delete:authenticated',
-        'Agent/Disconnect:authenticated', 'Credentials/Create:authenticated', 'Credentials/Delete:authenticated',
-        'Credentials/ManageDomains:authenticated', 'Credentials/Update:authenticated',
-        'Credentials/View:authenticated', 'Job/Build:authenticated', 'Job/Cancel:authenticated',
-        'Job/Configure:authenticated', 'Job/Create:authenticated', 'Job/Delete:authenticated',
-        'Job/Discover:authenticated', 'Job/Move:authenticated', 'Job/Read:authenticated',
-        'Job/Workspace:authenticated', 'Lockable Resources/Reserve:authenticated',
-        'Lockable Resources/Unlock:authenticated', 'Lockable Resources/View:authenticated',
-        'Overall/Administer:authenticated', 'Overall/Administer:easternbay', 'Overall/Read:authenticated',
-        'Run/Delete:authenticated', 'Run/Replay:authenticated', 'Run/Update:authenticated',
-        'SCM/Tag:authenticated', 'View/Configure:authenticated', 'View/Create:authenticated',
-        'View/Delete:authenticated', 'View/Read:authenticated']
-  clouds: []
+      permissions:
+      - "Agent/Build:authenticated"
+      - "Agent/Configure:authenticated"
+      - "Agent/Connect:authenticated"
+      - "Agent/Create:authenticated"
+      - "Agent/Delete:authenticated"
+      - "Agent/Disconnect:authenticated"
+      - "Credentials/Create:authenticated"
+      - "Credentials/Delete:authenticated"
+      - "Credentials/ManageDomains:authenticated"
+      - "Credentials/Update:authenticated"
+      - "Credentials/View:authenticated"
+      - "Job/Build:authenticated"
+      - "Job/Cancel:authenticated"
+      - "Job/Configure:authenticated"
+      - "Job/Create:authenticated"
+      - "Job/Delete:authenticated"
+      - "Job/Discover:authenticated"
+      - "Job/Move:authenticated"
+      - "Job/Read:authenticated"
+      - "Job/Workspace:authenticated"
+      - "Lockable Resources/Reserve:authenticated"
+      - "Lockable Resources/Unlock:authenticated"
+      - "Lockable Resources/View:authenticated"
+      - "Overall/Administer:authenticated"
+      - "Overall/Administer:easternbay"
+      - "Overall/Read:authenticated"
+      - "Run/Delete:authenticated"
+      - "Run/Replay:authenticated"
+      - "Run/Update:authenticated"
+      - "SCM/Tag:authenticated"
+      - "View/Configure:authenticated"
+      - "View/Create:authenticated"
+      - "View/Delete:authenticated"
+      - "View/Read:authenticated"
+  clouds:
+  - docker:
+      dockerApi:
+        connectTimeout: 60
+        dockerHost:
+          uri: "tcp://52.195.18.51:4243"
+        readTimeout: 60
+      exposeDockerHost: true
+      name: "docker"
+      templates:
+      - connector:
+          ssh:
+            sshKeyStrategy:
+              manuallyConfiguredSSHKey:
+                credentialsId: "298286ab-6c07-43b7-a339-b731da173821"
+                sshHostKeyVerificationStrategy: "nonVerifyingKeyVerificationStrategy"
+        dockerTemplateBase:
+          cpuPeriod: 0
+          cpuQuota: 0
+          image: "docker-cloud-env"
+          volumes:
+          - "/home/ubuntu/efs:/home/jenkins/.m2/repository"
+          - "/usr/bin/docker:/usr/bin/docker"
+          - "/home/ubuntu/.aws:/home/jenkins/.aws"
+          volumesString: |-
+            /home/ubuntu/efs:/home/jenkins/.m2/repository
+            /usr/bin/docker:/usr/bin/docker
+            /home/ubuntu/.aws:/home/jenkins/.aws
+        instanceCapStr: "2"
+        labelString: "docker cloud shamu-hrs"
+        mode: EXCLUSIVE
+        name: "docker-cloud"
+        pullStrategy: PULL_NEVER
+        pullTimeout: 300
+        remoteFs: "/home/jenkins"
+  - docker:
+      dockerApi:
+        connectTimeout: 60
+        dockerHost:
+          uri: "tcp://18.181.46.37:4243"
+        readTimeout: 60
+      exposeDockerHost: true
+      name: "docker"
+      templates:
+      - connector:
+          ssh:
+            sshKeyStrategy:
+              manuallyConfiguredSSHKey:
+                credentialsId: "298286ab-6c07-43b7-a339-b731da173821"
+                sshHostKeyVerificationStrategy: "nonVerifyingKeyVerificationStrategy"
+        dockerTemplateBase:
+          cpuPeriod: 0
+          cpuQuota: 0
+          image: "docker-cloud-env"
+          volumes:
+          - "/home/ubuntu/efs:/home/jenkins/.m2/repository"
+          - "/usr/bin/docker:/usr/bin/docker"
+          - "/home/ubuntu/.aws:/home/jenkins/.aws"
+          volumesString: |-
+            /home/ubuntu/efs:/home/jenkins/.m2/repository
+            /usr/bin/docker:/usr/bin/docker
+            /home/ubuntu/.aws:/home/jenkins/.aws
+        instanceCapStr: "2"
+        mode: EXCLUSIVE
+        name: "docker-cloud"
+        pullStrategy: PULL_NEVER
+        pullTimeout: 300
+        remoteFs: "/home/jenkins"
   crumbIssuer:
-    standard: {excludeClientIPFromCrumb: false}
+    standard:
+      excludeClientIPFromCrumb: false
   disableRememberMe: false
   labelAtoms:
-  - {name: master}
-  markupFormatter: plainText
+  - name: "cloud"
+  - name: "docker"
+  - name: "docker-cloud-0001r4l4hft8c"
+  - name: "docker-cloud-0001r4lkummfh"
+  - name: "master"
+  - name: "shamu-hrs"
+  markupFormatter: "plainText"
   mode: NORMAL
-  myViewsTabBar: standard
+  myViewsTabBar: "standard"
   numExecutors: 0
   primaryView:
-    all: {name: all}
-  projectNamingStrategy: standard
+    all:
+      name: "all"
+  projectNamingStrategy: "standard"
   quietPeriod: 5
-  remotingSecurity: {enabled: true}
+  remotingSecurity:
+    enabled: true
   scmCheckoutRetryCount: 0
   securityRealm:
     local:
       allowsSignup: false
       enableCaptcha: false
       users:
-      - id: tardisone
-        name: tardisone
+      - id: "tardisone"
+        name: "tardisone"
         properties:
-        - apiToken
-        - mailer
-        - myView
-        - preferredProvider: {providerId: default}
-        - timezone
+        - "apiToken"
+        - "mailer"
+        - preferredProvider:
+            providerId: "default"
+        - "timezone"
   slaveAgentPort: 50000
   updateCenter:
     sites:
-    - {id: default, url: 'https://updates.jenkins.io/update-center.json'}
+    - id: "default"
+      url: "https://updates.jenkins.io/update-center.json"
   views:
-  - all: {name: all}
-  viewsTabBar: standard
+  - all:
+      name: "all"
+  viewsTabBar: "standard"
 security:
-  apiToken: {creationOfLegacyTokenEnabled: true, tokenGenerationOnCreationEnabled: false,
-    usageStatisticsEnabled: true}
-  sSHD: {port: -1}
-tool:
-  git:
-    installations:
-    - {home: /usr/bin/git, name: Default}
-  maven:
-    installations:
-    - {home: /usr/share/maven, name: Maven 3.6.0}
-  sonarRunnerInstallation:
-    installations:
-    - name: Easternbay Sonarqube Scanner
-      properties:
-      - installSource:
-          installers:
-          - sonarRunnerInstaller: {id: 4.2.0.1873}
+  apiToken:
+    creationOfLegacyTokenEnabled: true
+    tokenGenerationOnCreationEnabled: false
+    usageStatisticsEnabled: true
+  sSHD:
+    port: -1
 unclassified:
   ansiColorBuildWrapper:
     colorMaps:
-    - {black: '#000000', blackB: '#4C4C4C', blue: '#1E90FF', blueB: '#4682B4', cyan: '#00CDCD',
-      cyanB: '#00FFFF', green: '#00CD00', greenB: '#00FF00', magenta: '#CD00CD', magentaB: '#FF00FF',
-      name: xterm, red: '#CD0000', redB: '#FF0000', white: '#E5E5E5', whiteB: '#FFFFFF',
-      yellow: '#CDCD00', yellowB: '#FFFF00'}
-    - {black: '#000000', blackB: '#555555', blue: '#0000AA', blueB: '#5555FF', cyan: '#00AAAA',
-      cyanB: '#55FFFF', defaultBackground: 0, defaultForeground: 7, green: '#00AA00',
-      greenB: '#55FF55', magenta: '#AA00AA', magentaB: '#FF55FF', name: vga, red: '#AA0000',
-      redB: '#FF5555', white: '#AAAAAA', whiteB: '#FFFFFF', yellow: '#AA5500', yellowB: '#FFFF55'}
-    - {black: black, blackB: black, blue: blue, blueB: blue, cyan: cyan, cyanB: cyan,
-      green: green, greenB: green, magenta: magenta, magentaB: magenta, name: css,
-      red: red, redB: red, white: white, whiteB: white, yellow: yellow, yellowB: yellow}
-    - {black: '#2E3436', blackB: '#2E3436', blue: '#3465A4', blueB: '#3465A4', cyan: '#06989A',
-      cyanB: '#06989A', defaultBackground: 0, defaultForeground: 7, green: '#4E9A06',
-      greenB: '#4E9A06', magenta: '#75507B', magentaB: '#75507B', name: gnome-terminal,
-      red: '#CC0000', redB: '#CC0000', white: '#D3D7CF', whiteB: '#D3D7CF', yellow: '#C4A000',
-      yellowB: '#C4A000'}
+    - black: "#000000"
+      blackB: "#4C4C4C"
+      blue: "#1E90FF"
+      blueB: "#4682B4"
+      cyan: "#00CDCD"
+      cyanB: "#00FFFF"
+      green: "#00CD00"
+      greenB: "#00FF00"
+      magenta: "#CD00CD"
+      magentaB: "#FF00FF"
+      name: "xterm"
+      red: "#CD0000"
+      redB: "#FF0000"
+      white: "#E5E5E5"
+      whiteB: "#FFFFFF"
+      yellow: "#CDCD00"
+      yellowB: "#FFFF00"
+    - black: "#000000"
+      blackB: "#555555"
+      blue: "#0000AA"
+      blueB: "#5555FF"
+      cyan: "#00AAAA"
+      cyanB: "#55FFFF"
+      defaultBackground: 0
+      defaultForeground: 7
+      green: "#00AA00"
+      greenB: "#55FF55"
+      magenta: "#AA00AA"
+      magentaB: "#FF55FF"
+      name: "vga"
+      red: "#AA0000"
+      redB: "#FF5555"
+      white: "#AAAAAA"
+      whiteB: "#FFFFFF"
+      yellow: "#AA5500"
+      yellowB: "#FFFF55"
+    - black: "black"
+      blackB: "black"
+      blue: "blue"
+      blueB: "blue"
+      cyan: "cyan"
+      cyanB: "cyan"
+      green: "green"
+      greenB: "green"
+      magenta: "magenta"
+      magentaB: "magenta"
+      name: "css"
+      red: "red"
+      redB: "red"
+      white: "white"
+      whiteB: "white"
+      yellow: "yellow"
+      yellowB: "yellow"
+    - black: "#2E3436"
+      blackB: "#2E3436"
+      blue: "#3465A4"
+      blueB: "#3465A4"
+      cyan: "#06989A"
+      cyanB: "#06989A"
+      defaultBackground: 0
+      defaultForeground: 7
+      green: "#4E9A06"
+      greenB: "#4E9A06"
+      magenta: "#75507B"
+      magentaB: "#75507B"
+      name: "gnome-terminal"
+      red: "#CC0000"
+      redB: "#CC0000"
+      white: "#D3D7CF"
+      whiteB: "#D3D7CF"
+      yellow: "#C4A000"
+      yellowB: "#C4A000"
   buildDiscarders:
-    configuredBuildDiscarders: [jobBuildDiscarder]
-  buildStepOperation: {enabled: false}
+    configuredBuildDiscarders:
+    - "jobBuildDiscarder"
+  buildStepOperation:
+    enabled: false
   defaultFolderConfiguration:
     healthMetrics:
-    - worstChildHealthMetric: {recursive: true}
-  extendedEmailPublisher: {adminRequiredForTemplateTesting: false, allowUnregisteredEnabled: false,
-    charset: UTF-8, debugMode: false, defaultBody: '$PROJECT_NAME - Build # $BUILD_NUMBER
-      - $BUILD_STATUS:
-
-
-      Check console output at $BUILD_URL to view the results.', defaultSubject: '$PROJECT_NAME
-      - Build # $BUILD_NUMBER - $BUILD_STATUS!', maxAttachmentSize: -1, maxAttachmentSizeMb: 0,
-    precedenceBulk: false, useSsl: false, watchingEnabled: false}
-  fingerprints: {fingerprintCleanupDisabled: false, storage: file}
-  gitHubConfiguration: {apiRateLimitChecker: ThrottleForNormalize}
+    - worstChildHealthMetric:
+        recursive: true
+  extendedEmailPublisher:
+    adminRequiredForTemplateTesting: false
+    allowUnregisteredEnabled: false
+    charset: "UTF-8"
+    debugMode: false
+    defaultBody: "$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS:\r\n\r\nCheck\
+      \ console output at $BUILD_URL to view the results."
+    defaultContentType: "text/plain"
+    defaultSubject: "$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS!"
+    maxAttachmentSize: -1
+    maxAttachmentSizeMb: 0
+    precedenceBulk: false
+    useSsl: false
+    watchingEnabled: false
+  fingerprints:
+    fingerprintCleanupDisabled: false
+    storage: "file"
+  gitHubConfiguration:
+    apiRateLimitChecker: ThrottleForNormalize
   gitHubPluginConfig:
     configs:
-    - {name: EasternbayGithubServer}
-    hookUrl: https://jenkins.tardisoneci.com/github-webhook/
-  gitSCM: {allowSecondFetch: false, createAccountBasedOnEmail: false, disableGitToolChooser: false,
-    hideCredentials: false, showEntireCommitSummaryInChanges: false, useExistingAccountWithSameEmail: false}
-  junitTestResultStorage: {storage: file}
-  location: {adminAddress: address not configured yet <nobody@nowhere>, url: 'https://jenkinstests.tardisoneci.com/'}
-  mailer: {charset: UTF-8, useSsl: false, useTls: false}
-  mavenModuleSet: {localRepository: default}
-  pollSCM: {pollingThreadCount: 10}
+    - credentialsId: "5fed7e7a-fb86-41a8-b522-d1da25b97782"
+      name: "EasternbayGithubServer"
+    hookUrl: "https://jenkins.tardisoneci.com/github-webhook/"
+  gitSCM:
+    allowSecondFetch: false
+    createAccountBasedOnEmail: false
+    disableGitToolChooser: false
+    hideCredentials: false
+    showEntireCommitSummaryInChanges: false
+    useExistingAccountWithSameEmail: false
+  junitTestResultStorage:
+    storage: "file"
+  location:
+    adminAddress: "address not configured yet <nobody@nowhere>"
+    url: "https://jenkinstests.tardisoneci.com/"
+  mailer:
+    charset: "UTF-8"
+    useSsl: false
+    useTls: false
+  mavenModuleSet:
+    localRepository: "default"
+  pollSCM:
+    pollingThreadCount: 10
   sonarGlobalConfiguration:
     buildWrapperEnabled: true
     installations:
-    - name: EasternbaySonarQube
-      serverUrl: http://3.115.71.39:9000
-      triggers: {skipScmCause: false, skipUpstreamCause: false}
-  timestamperConfig: {allPipelines: false, elapsedTimeFormat: '''<b>''HH:mm:ss.S''</b>
-      ''', systemTimeFormat: '''<b>''HH:mm:ss''</b> '''}
-  whitelist: {enabled: false}
+    - name: "EasternbaySonarQube"
+      serverUrl: "http://3.115.71.39:9000"
+      triggers:
+        skipScmCause: false
+        skipUpstreamCause: false
+  timestamperConfig:
+    allPipelines: false
+    elapsedTimeFormat: "'<b>'HH:mm:ss.S'</b> '"
+    systemTimeFormat: "'<b>'HH:mm:ss'</b> '"
+  whitelist:
+    enabled: false
+tool:
+  git:
+    installations:
+    - home: "/usr/bin/git"
+      name: "Default"
+  maven:
+    installations:
+    - home: "/usr/share/maven"
+      name: "Maven 3.6.0"
+  nodejs:
+    installations:
+    - name: "12.19.0"
+      properties:
+      - installSource:
+          installers:
+          - nodeJSInstaller:
+              id: "12.9.0"
+              npmPackagesRefreshHours: 72
+    - name: "10.15.3"
+      properties:
+      - installSource:
+          installers:
+          - nodeJSInstaller:
+              id: "10.15.3"
+              npmPackagesRefreshHours: 72
+  sonarRunnerInstallation:
+    installations:
+    - name: "Easternbay Sonarqube Scanner"
+      properties:
+      - installSource:
+          installers:
+          - sonarRunnerInstaller:
+              id: "4.2.0.1873"

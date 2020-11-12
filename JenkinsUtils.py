@@ -51,8 +51,7 @@ def upload_jenkins_yaml():
 
 def get_current_busy_computer_xml():
     commandExcuteUtils.runcmd(
-        ["curl https://jenkinstests.tardisoneci.com/computer/api/xml?depth=1"
+        ["curl https://newjenkins.tardisoneci.com/computer/api/xml?depth=1"
          " --user 'tardisone:43f8d1c5d1864500b75db1f2c0f8177e' > computer.xml"])
 
-
-get_jenkins_configuration_yaml("jenkinstests.tardisoneci.com")
+get_jenkins_configuration_yaml("newjenkins.tardisoneci.com")

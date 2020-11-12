@@ -13,30 +13,6 @@ def read_yaml(file):
         return yaml_info
     return None
 
-
-# def get_docker_clouds(docker_clouds):
-
-
-# jenkinsconfiguration_path = os.path.join(os.getcwd(), 'jenkins.yaml')
-# os.path.isfile(jenkinsconfiguration_path)
-# yaml_infos = read_yaml(jenkinsconfiguration_path)
-
-
-# print(yaml_infos['jenkins']['clouds'])
-# print(type(yaml_infos['jenkins']['clouds']))
-# print(len(yaml_infos['jenkins']['clouds']))
-
-# docker_cloud_ips = []
-# for i in range(len(yaml_infos['jenkins']['clouds'])):
-#     str = "tcp://54.199.31.91:4243"
-#     print(re.findall(r"tcp://(.+?):4243", str))
-#     print(yaml_infos['jenkins']['clouds'][i]['docker']['dockerApi']['dockerHost']['uri'])
-#     docker_cloud_ips.append(re.findall(r"tcp://(.+?):4243",
-#                                        yaml_infos['jenkins']['clouds'][i]['docker']['dockerApi']['dockerHost']['uri'])[
-#                                 0])
-#
-# print(docker_cloud_ips)
-
 # get all the docker cloud ips form file f
 def collect_docker_cloud_ips(file_name):
     jenkins_configuration_path = os.path.join(os.getcwd(), file_name)
@@ -62,7 +38,7 @@ def add_new_ec2_instance_log(instance_id, public_ip, launch_time):
         "public_ip": public_ip,
         "launch_time": launch_time
     }}
-    f = open("ec2_creation_history.yaml", "w")
+    f = open("ec2_creation_history.yaml", "a+")
     yaml.dump(temp_dict, f)
     f.close()
 
