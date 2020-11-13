@@ -2,7 +2,6 @@ import json
 import jenkins
 import commandExcuteUtils
 
-# server = jenkins.Jenkins('http://54.154.89.252:8080', username='admin', password='Zsy950108')
 server = jenkins.Jenkins('https://jenkinstests.tardisoneci.com', username='tardisone',
                          password='43f8d1c5d1864500b75db1f2c0f8177e')
 

@@ -25,8 +25,6 @@ def collect_docker_cloud_ips(file_name):
     yaml_infos = read_yaml(jenkins_configuration_path)
     docker_cloud_ips = []
     for i in range(len(yaml_infos['jenkins']['clouds'])):
-        # str = "tcp://54.199.31.91:4243"
-        # print(re.findall(r"tcp://(.+?):4243", str))
         print(re.findall(r"tcp://(.+?):4243",
                          yaml_infos['jenkins']['clouds'][i]['docker']['dockerApi']['dockerHost'][
                              'uri']))
@@ -59,19 +57,12 @@ def delete_ec2_instance_log_by_id(instance_id):
 
 
 def check_ec2_launch_time_over_2_hours(instance_ip):
-    # print(f.read())
     jenkins_ec2_creation_history_file_path = os.path.join(os.getcwd(), "ec2_creation_history.yaml")
     yaml_info = read_yaml(jenkins_ec2_creation_history_file_path)
-    print("ip in check", instance_ip)
-    for k in yaml_info:
-        print("k", k)
-        if yaml_info[k]['public_ip'] == instance_ip:
-            print("time exists",
-                  (datetime.fromisoformat(yaml_info[k]['launch_time'][:-1]) - datetime.now()).total_seconds())
-            if (datetime.fromisoformat(yaml_info[k]['launch_time'][:-1]) - datetime.now()).total_seconds() < -7200:
-                print("return true")
+    for instance_id in yaml_info:
+        if yaml_info[instance_id]['public_ip'] == instance_ip:
+            if (datetime.fromisoformat(yaml_info[instance_id]['launch_time'][:-1]) - datetime.now()).total_seconds() < -7200:
                 return True
-    print("return false")
     return False
 
 
@@ -111,6 +102,3 @@ def delete_docker_cloud_in_jenkins(deleted_public_ip):
         print(yaml_infos)
         print(yaml_infos['jenkins']['clouds'])
         yaml.dump(yaml_infos, f)
-
-
-add_docker_cloud_in_jenkins("12.13.123.123")

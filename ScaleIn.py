@@ -1,16 +1,11 @@
-import os
 import xmlUtils
 import yamlUtils
 import JenkinsUtils
 import awsUtils
 
-f = os.popen('date')
-now = f.read()
-print("Today is ", now)
 
-
-def Scale_in():
-    # JenkinsUtils.get_current_busy_computer_xml()
+def scale_in():
+    JenkinsUtils.get_current_busy_computer_xml()
     busy_ips = xmlUtils.get_busy_docker_cloud_ips()
     print("busy_ips", busy_ips)
     docker_cloud_ips = yamlUtils.collect_docker_cloud_ips('jenkins.yaml')
