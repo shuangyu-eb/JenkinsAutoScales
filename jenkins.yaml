@@ -126,40 +126,6 @@ jenkins:
         pullStrategy: PULL_NEVER
         pullTimeout: 300
         remoteFs: "/home/jenkins"
-  - docker:
-      dockerApi:
-        connectTimeout: 60
-        dockerHost:
-          uri: "tcp://18.183.10.241:4243"
-        readTimeout: 60
-      exposeDockerHost: true
-      name: "docker"
-      templates:
-      - connector:
-          ssh:
-            sshKeyStrategy:
-              manuallyConfiguredSSHKey:
-                credentialsId: "298286ab-6c07-43b7-a339-b731da173821"
-                sshHostKeyVerificationStrategy: "nonVerifyingKeyVerificationStrategy"
-        dockerTemplateBase:
-          cpuPeriod: 0
-          cpuQuota: 0
-          image: "shuangyu/new-cloud"
-          volumes:
-          - "/home/ubuntu/efs:/home/jenkins/.m2/repository"
-          - "/usr/bin/docker:/usr/bin/docker"
-          - "/home/ubuntu/.aws:/home/jenkins/.aws"
-          volumesString: |-
-            /home/ubuntu/efs:/home/jenkins/.m2/repository
-            /usr/bin/docker:/usr/bin/docker
-            /home/ubuntu/.aws:/home/jenkins/.aws
-        instanceCapStr: "2"
-        labelString: "docker cloud shamu-hrs"
-        mode: EXCLUSIVE
-        name: "docker-cloud"
-        pullStrategy: PULL_NEVER
-        pullTimeout: 300
-        remoteFs: "/home/jenkins"
   crumbIssuer:
     standard:
       excludeClientIPFromCrumb: false
