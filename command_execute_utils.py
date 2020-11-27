@@ -1,4 +1,5 @@
 import subprocess
+import log_operation
 
 
 def runcmd(command):
@@ -7,7 +8,7 @@ def runcmd(command):
     if ret.returncode == 0:
         return ret.stdout
     else:
-        print("error:", ret)
+        log_operation.operation_history(ret)
 
 
 

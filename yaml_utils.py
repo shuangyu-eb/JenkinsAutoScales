@@ -7,10 +7,9 @@ from backports.datetime_fromisoformat import MonkeyPatch
 MonkeyPatch.patch_fromisoformat()
 
 
-## 读取yaml文件
+## read yaml file
 def read_yaml(file):
     if os.path.isfile(file):
-        print("read", file)
         fr = open(file, 'r')
         yaml_info = yaml.load(fr)
         fr.close()
@@ -84,8 +83,6 @@ def add_docker_cloud_in_jenkins(public_ip):
     cloud_template_info[0]["docker"]["dockerApi"]["dockerHost"]["uri"] = "tcp://" + public_ip + ":4243"
     clouds_info.append(cloud_template_info[0])
     with open('jenkins.yaml', 'w') as f:
-        print(yaml_infos)
-        print(clouds_info)
         yaml.dump(yaml_infos, f)
 
 
@@ -99,6 +96,4 @@ def delete_docker_cloud_in_jenkins(deleted_public_ip):
         lambda node: (re.findall(r"tcp://(.+?):4243", node['docker']['dockerApi']['dockerHost']["uri"])[0] !=
                       deleted_public_ip), clouds_info))
     with open('jenkins.yaml', 'w') as f:
-        print(yaml_infos)
-        print(yaml_infos['jenkins']['clouds'])
         yaml.dump(yaml_infos, f)

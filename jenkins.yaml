@@ -5,7 +5,7 @@ credentials:
       - usernamePassword:
           description: "used for attach docker cloud container"
           id: "298286ab-6c07-43b7-a339-b731da173821"
-          password: "{AQAAABAAAAAQZ/EUR3MNO+bhN7vfTQi7nDhHSLlze7V+1PWnlLaV9KY=}"
+          password: "{AQAAABAAAAAQtRM5+ADctS0BcwILMCTvLJn8Glyfxu5MG8/MqQgGAqk=}"
           scope: GLOBAL
           username: "jenkins"
       - string:
@@ -16,7 +16,7 @@ credentials:
       - usernamePassword:
           description: "github account [shuangyu]"
           id: "40a59b89-4351-4854-9f3d-609fd7d3c356"
-          password: "{AQAAABAAAAAQIdsE6h1hMrNpppXUjP2t84sUdYcxi5UQp/rp/1UOcOY=}"
+          password: "{AQAAABAAAAAQWK+xtxlw+Jm2Q+Aa21134mQWnrToLm/Q4DsDtyAXLF4=}"
           scope: GLOBAL
           username: "shuangyuzhu0069@gmail.com"
       - string:
@@ -26,7 +26,7 @@ credentials:
           secret: "{AQAAABAAAAAwEMaqdiTT+SacZU76HF/7Ga+6r5fTT+6TKiHIcBPQvMfLNJAFkas3UL8SpxEOzxvpn0cRynrK0/cfsvP2fRuOyQ==}"
       - usernamePassword:
           id: "6e5dd772-59f3-4102-afae-888a801cd356"
-          password: "{AQAAABAAAAAwDszogo0bdezCDN/Px60ZwVnpQZ7Yd+udUXdPHa/tc5FGu90KffobcjClaFJ4mazUX6XH3Tdtx10y7o+eEQjFaw==}"
+          password: "{AQAAABAAAAAweZzeWRkW6IntpCniXsZN+6V2np1wxzwtn62tzXCd9RVDPVG/x5BTMODbG2P41+tGMmIjUAtpvgLrS+Z5W2kXMQ==}"
           scope: GLOBAL
           username: "hrs-github-access-token-shuangyu"
       - string:
@@ -44,6 +44,12 @@ credentials:
           id: "simplyhired-hrs-eastbay-qa-ansible-vault"
           scope: GLOBAL
           secret: "{AQAAABAAAAAgCsN1Dj9/UIXnFzKVSvOMb1QiXMuU5cE2xLp6IIkOfzfgkRrAMPOZ/FECh6P4+6Bx}"
+      - usernamePassword:
+          description: "hris-github-api-token"
+          id: "hris-github-api-token"
+          password: "{AQAAABAAAAAwwQvpA2kVF5em41ORGsM8cGPuR/WAxGo/vaPbD6heRWnMjANoJ28ch6j60ZxCeOsxlfr1O3dmwKm6Z71RYyIG6Q==}"
+          scope: GLOBAL
+          username: "shuangyuzhu0069@gmail.com"
 jenkins:
   agentProtocols:
   - "JNLP4-connect"
@@ -90,7 +96,7 @@ jenkins:
       dockerApi:
         connectTimeout: 60
         dockerHost:
-          uri: "tcp://52.195.18.51:4243"
+          uri: "tcp://18.183.206.23:4243"
         readTimeout: 60
       exposeDockerHost: true
       name: "docker"
@@ -104,7 +110,7 @@ jenkins:
         dockerTemplateBase:
           cpuPeriod: 0
           cpuQuota: 0
-          image: "docker-cloud-env"
+          image: "shuangyu/new-cloud"
           volumes:
           - "/home/ubuntu/efs:/home/jenkins/.m2/repository"
           - "/usr/bin/docker:/usr/bin/docker"
@@ -124,7 +130,7 @@ jenkins:
       dockerApi:
         connectTimeout: 60
         dockerHost:
-          uri: "tcp://18.181.46.37:4243"
+          uri: "tcp://18.183.10.241:4243"
         readTimeout: 60
       exposeDockerHost: true
       name: "docker"
@@ -138,7 +144,7 @@ jenkins:
         dockerTemplateBase:
           cpuPeriod: 0
           cpuQuota: 0
-          image: "docker-cloud-env"
+          image: "shuangyu/new-cloud"
           volumes:
           - "/home/ubuntu/efs:/home/jenkins/.m2/repository"
           - "/usr/bin/docker:/usr/bin/docker"
@@ -161,8 +167,6 @@ jenkins:
   labelAtoms:
   - name: "cloud"
   - name: "docker"
-  - name: "docker-cloud-0001q9xaoscgl"
-  - name: "docker-cloud-0001q9xr77bbj"
   - name: "master"
   - name: "shamu-hrs"
   markupFormatter: "plainText"
@@ -381,4 +385,3 @@ tool:
           installers:
           - sonarRunnerInstaller:
               id: "4.2.0.1873"
-
