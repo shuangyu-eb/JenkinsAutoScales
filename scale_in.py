@@ -3,6 +3,9 @@ import yaml_utils
 import jenkins_utils
 import aws_utils
 import global_constants
+import logging
+
+logging.basicConfig(format='%(asctime)s:%(levelname)s:%(message)s', level=logging.INFO, filename="slave_scale_log")
 
 
 def scale_in():
@@ -13,7 +16,8 @@ def scale_in():
                      x not in busy_ips and yaml_utils.check_ec2_launch_time_over_2_hours(x) is True]
     if len(deletable_ips) > 0:
         yaml_utils.delete_docker_cloud_in_jenkins(deletable_ips[0])
-        deleted_instance_id= yaml_utils.get_instance_id_by_public_ip_from_ec2_creation_yaml(deletable_ips[0])
+        deleted_instance_id = yaml_utils.get_instance_id_by_public_ip_from_ec2_creation_yaml(deletable_ips[0])
         yaml_utils.delete_ec2_instance_log_by_id(deleted_instance_id)
         aws_utils.terminate_ec2(deleted_instance_id)
+        logging.info(f"terminate one ec2 with {instance_id}")
         jenkins_utils.trigger_configuration_reload(global_constants.server_domain)
