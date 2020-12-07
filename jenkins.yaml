@@ -5,7 +5,7 @@ credentials:
       - usernamePassword:
           description: "used for attach docker cloud container"
           id: "298286ab-6c07-43b7-a339-b731da173821"
-          password: "{AQAAABAAAAAQtRM5+ADctS0BcwILMCTvLJn8Glyfxu5MG8/MqQgGAqk=}"
+          password: "{AQAAABAAAAAQK7HLSgMLhIZVIWPCGzPgP6MMYmQi6TeISbRWNFHsqXQ=}"
           scope: GLOBAL
           username: "jenkins"
       - string:
@@ -16,7 +16,7 @@ credentials:
       - usernamePassword:
           description: "github account [shuangyu]"
           id: "40a59b89-4351-4854-9f3d-609fd7d3c356"
-          password: "{AQAAABAAAAAQWK+xtxlw+Jm2Q+Aa21134mQWnrToLm/Q4DsDtyAXLF4=}"
+          password: "{AQAAABAAAAAQ3ZPm7wPqS1m/w1DcOMSjr+ey29KRozjKQ5gHevzag3g=}"
           scope: GLOBAL
           username: "shuangyuzhu0069@gmail.com"
       - string:
@@ -26,7 +26,7 @@ credentials:
           secret: "{AQAAABAAAAAwEMaqdiTT+SacZU76HF/7Ga+6r5fTT+6TKiHIcBPQvMfLNJAFkas3UL8SpxEOzxvpn0cRynrK0/cfsvP2fRuOyQ==}"
       - usernamePassword:
           id: "6e5dd772-59f3-4102-afae-888a801cd356"
-          password: "{AQAAABAAAAAweZzeWRkW6IntpCniXsZN+6V2np1wxzwtn62tzXCd9RVDPVG/x5BTMODbG2P41+tGMmIjUAtpvgLrS+Z5W2kXMQ==}"
+          password: "{AQAAABAAAAAwiLCCPshMIefCdcecoJ3WD0fkWwWHNiLBd7SU511btGC1IHmfUxrhoUV707BUipsVHqokF8e3OOqt/nEfeINREg==}"
           scope: GLOBAL
           username: "hrs-github-access-token-shuangyu"
       - string:
@@ -47,7 +47,7 @@ credentials:
       - usernamePassword:
           description: "hris-github-api-token"
           id: "hris-github-api-token"
-          password: "{AQAAABAAAAAwwQvpA2kVF5em41ORGsM8cGPuR/WAxGo/vaPbD6heRWnMjANoJ28ch6j60ZxCeOsxlfr1O3dmwKm6Z71RYyIG6Q==}"
+          password: "{AQAAABAAAAAwzct8HLotgpavckHBrDnXWizlOPFZfdeKrZWTGab/EI7O1ehOWnpeyvE10w00p9eqTb1NIEJqPkRNYboR+ejPsg==}"
           scope: GLOBAL
           username: "shuangyuzhu0069@gmail.com"
 jenkins:
@@ -97,6 +97,40 @@ jenkins:
         connectTimeout: 60
         dockerHost:
           uri: "tcp://18.183.206.23:4243"
+        readTimeout: 60
+      exposeDockerHost: true
+      name: "docker"
+      templates:
+      - connector:
+          ssh:
+            sshKeyStrategy:
+              manuallyConfiguredSSHKey:
+                credentialsId: "298286ab-6c07-43b7-a339-b731da173821"
+                sshHostKeyVerificationStrategy: "nonVerifyingKeyVerificationStrategy"
+        dockerTemplateBase:
+          cpuPeriod: 0
+          cpuQuota: 0
+          image: "shuangyu/new-cloud"
+          volumes:
+          - "/home/ubuntu/efs:/home/jenkins/.m2/repository"
+          - "/usr/bin/docker:/usr/bin/docker"
+          - "/home/ubuntu/.aws:/home/jenkins/.aws"
+          volumesString: |-
+            /home/ubuntu/efs:/home/jenkins/.m2/repository
+            /usr/bin/docker:/usr/bin/docker
+            /home/ubuntu/.aws:/home/jenkins/.aws
+        instanceCapStr: "2"
+        labelString: "docker cloud shamu-hrs"
+        mode: EXCLUSIVE
+        name: "docker-cloud"
+        pullStrategy: PULL_NEVER
+        pullTimeout: 300
+        remoteFs: "/home/jenkins"
+  - docker:
+      dockerApi:
+        connectTimeout: 60
+        dockerHost:
+          uri: "tcp://18.183.10.241:4243"
         readTimeout: 60
       exposeDockerHost: true
       name: "docker"

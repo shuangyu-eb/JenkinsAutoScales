@@ -1,1 +1,0 @@
-server_domain = 'newjenkins.tardisoneci.com'

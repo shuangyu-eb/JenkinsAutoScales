@@ -2,7 +2,7 @@ import xml_utils
 import yaml_utils
 import jenkins_utils
 import aws_utils
-import gl
+import global_constants
 
 
 def scale_in():
@@ -16,4 +16,4 @@ def scale_in():
         deleted_instance_id= yaml_utils.get_instance_id_by_public_ip_from_ec2_creation_yaml(deletable_ips[0])
         yaml_utils.delete_ec2_instance_log_by_id(deleted_instance_id)
         aws_utils.terminate_ec2(deleted_instance_id)
-        jenkins_utils.trigger_configuration_reload(gl.server_domain)
+        jenkins_utils.trigger_configuration_reload(global_constants.server_domain)

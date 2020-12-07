@@ -2,7 +2,7 @@ import aws_utils
 import yaml_utils
 import jenkins_utils
 import log_operation
-import gl
+import global_constants
 
 
 def scale_out():
@@ -14,6 +14,6 @@ def scale_out():
     log_operation.operation_history("launch_time :" + str(launch_time))
     yaml_utils.add_new_ec2_instance_log(str(instance_id), str(public_ip), str(launch_time))
     yaml_utils.add_docker_cloud_in_jenkins(str(public_ip))
-    jenkins_utils.trigger_configuration_reload(gl.server_domain)
+    jenkins_utils.trigger_configuration_reload(global_constants.server_domain)
 
 
