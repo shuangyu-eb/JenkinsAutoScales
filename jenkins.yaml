@@ -1,3 +1,55 @@
+credentials:
+  system:
+    domainCredentials:
+    - credentials:
+      - usernamePassword:
+          description: "used for attach docker cloud container"
+          id: "298286ab-6c07-43b7-a339-b731da173821"
+          password: "{AQAAABAAAAAQK7HLSgMLhIZVIWPCGzPgP6MMYmQi6TeISbRWNFHsqXQ=}"
+          scope: GLOBAL
+          username: "jenkins"
+      - string:
+          description: "git access token[shuangyu]"
+          id: "5fed7e7a-fb86-41a8-b522-d1da25b97782"
+          scope: GLOBAL
+          secret: "{AQAAABAAAAAwSXgR0MEABA+OZI1VgK7gQu1dVuwFa8txfSYRohv2qhBKNn3xG5gML8wAXWy3FbzIpLT/p94VJc6TDPHtN3Qa0Q==}"
+      - usernamePassword:
+          description: "github account [shuangyu]"
+          id: "40a59b89-4351-4854-9f3d-609fd7d3c356"
+          password: "{AQAAABAAAAAQ3ZPm7wPqS1m/w1DcOMSjr+ey29KRozjKQ5gHevzag3g=}"
+          scope: GLOBAL
+          username: "shuangyuzhu0069@gmail.com"
+      - string:
+          description: "git access token[shuangyu]"
+          id: "842e4b30-73d6-4eff-bd64-0045bef4e238"
+          scope: GLOBAL
+          secret: "{AQAAABAAAAAwEMaqdiTT+SacZU76HF/7Ga+6r5fTT+6TKiHIcBPQvMfLNJAFkas3UL8SpxEOzxvpn0cRynrK0/cfsvP2fRuOyQ==}"
+      - usernamePassword:
+          id: "6e5dd772-59f3-4102-afae-888a801cd356"
+          password: "{AQAAABAAAAAwiLCCPshMIefCdcecoJ3WD0fkWwWHNiLBd7SU511btGC1IHmfUxrhoUV707BUipsVHqokF8e3OOqt/nEfeINREg==}"
+          scope: GLOBAL
+          username: "hrs-github-access-token-shuangyu"
+      - string:
+          description: "sonarqube-token"
+          id: "sonarqube-token"
+          scope: GLOBAL
+          secret: "{AQAAABAAAAAw9yQNlC/J/6R58zxWRcx4OAUf/HBYdUfeQXKn20YAvqFISU9vqYT4d94Ut/Lc0OGfdSPvlm8n+AX+L2zGH2tXnQ==}"
+      - string:
+          description: "simplyhired-hrs-eastbay-dev-ansible-vault"
+          id: "simplyhired-hrs-eastbay-dev-ansible-vault"
+          scope: GLOBAL
+          secret: "{AQAAABAAAAAgm8GFigujin6yd8MA36JQFuGqVziGBfqjxEZzW6yvU+opJiTVljLMlDJtrNCKH15Q}"
+      - string:
+          description: "simplyhired-hrs-eastbay-qa-ansible-vault"
+          id: "simplyhired-hrs-eastbay-qa-ansible-vault"
+          scope: GLOBAL
+          secret: "{AQAAABAAAAAgCsN1Dj9/UIXnFzKVSvOMb1QiXMuU5cE2xLp6IIkOfzfgkRrAMPOZ/FECh6P4+6Bx}"
+      - usernamePassword:
+          description: "hris-github-api-token"
+          id: "hris-github-api-token"
+          password: "{AQAAABAAAAAwzct8HLotgpavckHBrDnXWizlOPFZfdeKrZWTGab/EI7O1ehOWnpeyvE10w00p9eqTb1NIEJqPkRNYboR+ejPsg==}"
+          scope: GLOBAL
+          username: "shuangyuzhu0069@gmail.com"
 jenkins:
   agentProtocols:
   - "JNLP4-connect"
@@ -44,31 +96,67 @@ jenkins:
       dockerApi:
         connectTimeout: 60
         dockerHost:
-          uri: "tcp://34.245.134.204:4243"
+          uri: "tcp://18.183.206.23:4243"
         readTimeout: 60
       exposeDockerHost: true
-      name: "dockerssszsytestsuccessupload test"
+      name: "docker"
       templates:
       - connector:
           ssh:
             sshKeyStrategy:
               manuallyConfiguredSSHKey:
-                sshHostKeyVerificationStrategy: "knownHostsFileKeyVerificationStrategy"
+                credentialsId: "298286ab-6c07-43b7-a339-b731da173821"
+                sshHostKeyVerificationStrategy: "nonVerifyingKeyVerificationStrategy"
         dockerTemplateBase:
           cpuPeriod: 0
           cpuQuota: 0
-          image: "shuangyu"
+          image: "shuangyu/new-cloud"
           volumes:
-          - "/home/ubuntu/efs:/home/jenkins/.m2/repository'"
-          - "'/usr/bin/docker:/usr/bin/docker'"
-          - "'/home/ubuntu/.aws:/home/jenkins/.aws"
+          - "/home/ubuntu/efs:/home/jenkins/.m2/repository"
+          - "/usr/bin/docker:/usr/bin/docker"
+          - "/home/ubuntu/.aws:/home/jenkins/.aws"
           volumesString: |-
-            /home/ubuntu/efs:/home/jenkins/.m2/repository'
-            '/usr/bin/docker:/usr/bin/docker'
-            '/home/ubuntu/.aws:/home/jenkins/.aws
+            /home/ubuntu/efs:/home/jenkins/.m2/repository
+            /usr/bin/docker:/usr/bin/docker
+            /home/ubuntu/.aws:/home/jenkins/.aws
         instanceCapStr: "2"
-        labelString: "docker"
+        labelString: "docker cloud shamu-hrs"
         mode: EXCLUSIVE
+        name: "docker-cloud"
+        pullStrategy: PULL_NEVER
+        pullTimeout: 300
+        remoteFs: "/home/jenkins"
+  - docker:
+      dockerApi:
+        connectTimeout: 60
+        dockerHost:
+          uri: "tcp://18.183.10.241:4243"
+        readTimeout: 60
+      exposeDockerHost: true
+      name: "docker"
+      templates:
+      - connector:
+          ssh:
+            sshKeyStrategy:
+              manuallyConfiguredSSHKey:
+                credentialsId: "298286ab-6c07-43b7-a339-b731da173821"
+                sshHostKeyVerificationStrategy: "nonVerifyingKeyVerificationStrategy"
+        dockerTemplateBase:
+          cpuPeriod: 0
+          cpuQuota: 0
+          image: "shuangyu/new-cloud"
+          volumes:
+          - "/home/ubuntu/efs:/home/jenkins/.m2/repository"
+          - "/usr/bin/docker:/usr/bin/docker"
+          - "/home/ubuntu/.aws:/home/jenkins/.aws"
+          volumesString: |-
+            /home/ubuntu/efs:/home/jenkins/.m2/repository
+            /usr/bin/docker:/usr/bin/docker
+            /home/ubuntu/.aws:/home/jenkins/.aws
+        instanceCapStr: "2"
+        labelString: "docker cloud shamu-hrs"
+        mode: EXCLUSIVE
+        name: "docker-cloud"
         pullStrategy: PULL_NEVER
         pullTimeout: 300
         remoteFs: "/home/jenkins"
@@ -77,8 +165,10 @@ jenkins:
       excludeClientIPFromCrumb: false
   disableRememberMe: false
   labelAtoms:
+  - name: "cloud"
   - name: "docker"
   - name: "master"
+  - name: "shamu-hrs"
   markupFormatter: "plainText"
   mode: NORMAL
   myViewsTabBar: "standard"
@@ -101,7 +191,6 @@ jenkins:
         properties:
         - "apiToken"
         - "mailer"
-        - "myView"
         - preferredProvider:
             providerId: "default"
         - "timezone"
@@ -210,10 +299,9 @@ unclassified:
     allowUnregisteredEnabled: false
     charset: "UTF-8"
     debugMode: false
-    defaultBody: |-
-      $PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS:
-
-      Check console output at $BUILD_URL to view the results.
+    defaultBody: "$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS:\r\n\r\nCheck\
+      \ console output at $BUILD_URL to view the results."
+    defaultContentType: "text/plain"
     defaultSubject: "$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS!"
     maxAttachmentSize: -1
     maxAttachmentSizeMb: 0
@@ -227,7 +315,8 @@ unclassified:
     apiRateLimitChecker: ThrottleForNormalize
   gitHubPluginConfig:
     configs:
-    - name: "EasternbayGithubServer"
+    - credentialsId: "5fed7e7a-fb86-41a8-b522-d1da25b97782"
+      name: "EasternbayGithubServer"
     hookUrl: "https://jenkins.tardisoneci.com/github-webhook/"
   gitSCM:
     allowSecondFetch: false
@@ -240,7 +329,7 @@ unclassified:
     storage: "file"
   location:
     adminAddress: "address not configured yet <nobody@nowhere>"
-    url: "https://jenkins-test.tardisoneci.com/"
+    url: "https://jenkinstests.tardisoneci.com/"
   mailer:
     charset: "UTF-8"
     useSsl: false
@@ -272,6 +361,22 @@ tool:
     installations:
     - home: "/usr/share/maven"
       name: "Maven 3.6.0"
+  nodejs:
+    installations:
+    - name: "12.19.0"
+      properties:
+      - installSource:
+          installers:
+          - nodeJSInstaller:
+              id: "12.9.0"
+              npmPackagesRefreshHours: 72
+    - name: "10.15.3"
+      properties:
+      - installSource:
+          installers:
+          - nodeJSInstaller:
+              id: "10.15.3"
+              npmPackagesRefreshHours: 72
   sonarRunnerInstallation:
     installations:
     - name: "Easternbay Sonarqube Scanner"
